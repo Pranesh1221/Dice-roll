@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dice Game</title>
+    <style>
+      body {
+        background-color: rgb(255, 255, 255);
+      }
+      #winner {
+        text-align: center;
+        margin: 50px 0;
+        font-size: 60px;
+        color: teal;
+      }
+      #container {
+        width: 50%;
+        display: flex;
+        margin: auto;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 30px;
+        text-align: center;
+      }
+      #container #member-1,
+      #container #member-2,
+      #container #member-3 {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        background-color: rgb(74, 118, 230);
+        display: flex;
+        width: 90px;
+        height: 90px;
+        margin: auto;
+        align-items: center;
+        justify-content: center;
+        margin-top: 60px;
+        border-radius: 10px;
+        font-size: 40px;
+        color: rgb(12, 12, 12);
+      }
+      #roll {
+        display: block;
+        margin: auto;
+        margin-top: 150px;
+        height: 60px;
+        width: 20%;
+        border-radius: 40px;
+        background: rgb(233, 28, 28);
+        border: none;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+      }
+      #roll:hover {
+        background-color: darkblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="winner">Winners</div>
+    <div id="container">
+      <div id="1">
+        <div class="c">Player A</div>
+        <div id="member-1">1</div>
+      </div>
+
+      <div id="2">
+        <div class="c">Player B</div>
+        <div id="member-2">2</div>
+      </div>
+
+      <div id="3">
+        <div class="c">Player C</div>
+        <div id="member-3">3</div>
+      </div>
+    </div>
+    <button id="roll">ROLL THE DICE</button>
+  </body>
+</html>
+<script>
+  let rollDie = document.getElementById("roll");
+  document.getElementById("roll").addEventListener("click", rollDice);
+
+  function rollDice() {
+    rollDie.style.display = "none";
+    // console.log(Math.floor(Math.random() * 6) + 1);
+    var n1 = Math.floor(Math.random() * 6) + 1;
+    var n2 = Math.floor(Math.random() * 6) + 1;
+    var n3 = Math.floor(Math.random() * 6) + 1;
+    document.getElementById("member-1").innerText = n1;
+    document.getElementById("member-2").innerText = n2;
+    document.getElementById("member-3").innerText = n3;
+
+    if (n1 > n2 && n1 > n3 && n2 > n3) {
+      document.getElementById("member-1").style.backgroundColor = "green";
+      document.getElementById("member-2").style.backgroundColor = "yellow";
+      document.getElementById("member-3").style.backgroundColor = "red";
+      document.getElementById("winner").innerText = "Winner is Player A";
+    }
+    if (n1 > n2 && n1 < n3 && n3 > n2) {
+      document.getElementById("member-1").style.backgroundColor = "green";
+      document.getElementById("member-2").style.backgroundColor = "red";
+      document.getElementById("member-3").style.backgroundColor = "yellow";
+      document.getElementById("winner").innerText = "Winner is Player A";
+    }
+    if (n2 > n1 && n2 > n3 && n1 > n3) {
+      document.getElementById("member-1").style.backgroundColor = "yellow";
+      document.getElementById("member-2").style.backgroundColor = "green";
+      document.getElementById("member-3").style.backgroundColor = "red";
+      document.getElementById("winner").innerText = "Winner is Player B";
+    }
+    if (n2 > n1 && n2 > n3 && n3 > n1) {
+      document.getElementById("member-1").style.backgroundColor = "red";
+      document.getElementById("member-2").style.backgroundColor = "green";
+      document.getElementById("member-3").style.backgroundColor = "yellow";
+      document.getElementById("winner").innerText = "Winner is Player B";
+    }
+    if (n3 > n1 && n3 > n2 && n1 > n2) {
+      document.getElementById("member-1").style.backgroundColor = "yellow";
+      document.getElementById("member-2").style.backgroundColor = "red";
+      document.getElementById("member-3").style.backgroundColor = "green";
+      document.getElementById("winner").innerText = "Winner is Player C";
+    }
+    if (n3 > n1 && n3 > n2 && n2 > n1) {
+      document.getElementById("member-1").style.backgroundColor = "red";
+      document.getElementById("member-2").style.backgroundColor = "yellow";
+      document.getElementById("member-3").style.backgroundColor = "green";
+      document.getElementById("winner").innerText = "Winner is Player C";
+    }
+    if (n1 == n2 && n1 == n3) {
+      document.getElementById("member-1").style.backgroundColor = "blue";
+      document.getElementById("member-2").style.backgroundColor = "blue";
+      document.getElementById("member-3").style.backgroundColor = "blue";
+      document.getElementById("winner").innerText = "Its Draw";
+    }
+
+    if (n1 == n2) {
+      document.getElementById("member-1").style.backgroundColor = "blue";
+      document.getElementById("member-2").style.backgroundColor = "blue";
+      if (n1 > n3 || n2 > n3) {
+        document.getElementById("winner").innerText = "Its Draw";
+        document.getElementById("member-3").style.backgroundColor = "yellow";
+      } else {
+        document.getElementById("member-3").style.backgroundColor = "green";
+        document.getElementById("winner").innerText = "Winner is Player C";
+      }
+    }
+
+    if (n1 == n3) {
+      document.getElementById("member-1").style.backgroundColor = "blue";
+      document.getElementById("member-3").style.backgroundColor = "blue";
+
+      if (n1 > n2 || n3 > n3) {
+        document.getElementById("winner").innerText = "Its Draw";
+        document.getElementById("member-2").style.backgroundColor = "yellow";
+      } else {
+        document.getElementById("member-2").style.backgroundColor = "green";
+        document.getElementById("winner").innerText = "Winner is Player B";
+      }
+    }
+
+    if (n2 == n3) {
+      document.getElementById("member-2").style.backgroundColor = "blue";
+      document.getElementById("member-3").style.backgroundColor = "blue";
+
+      if (n2 > n1 || n3 > n1) {
+        document.getElementById("winner").innerText = "Its Draw";
+        document.getElementById("member-1").style.backgroundColor = "yellow";
+      } else {
+        document.getElementById("member-1").style.backgroundColor = "green";
+        document.getElementById("winner").innerText = "Winner is Player A";
+      }
+    }
+    setTimeout(function () {
+      location.reload(1);
+    }, 3000);
+  }
+</script>
